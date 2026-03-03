@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for notesbackend22 on 2026-03-01T15:45:45Z
+# fly.toml app configuration file generated for notesbackend22-misty-lake-5604 on 2026-03-02T14:46:43-04:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -7,6 +7,9 @@ app = 'notesbackend22'
 primary_region = 'iad'
 
 [build]
+
+[env]
+  PORT = "3000" # add this
 
 [http_service]
   internal_port = 3001

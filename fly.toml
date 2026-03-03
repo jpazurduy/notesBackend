@@ -9,7 +9,7 @@ primary_region = 'iad'
 [build]
 
 [env]
-  PORT = "3000" # add this
+  PORT = "3001" # add this
 
 [http_service]
   internal_port = 3001

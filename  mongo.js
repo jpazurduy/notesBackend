@@ -5,14 +5,18 @@ if (process.argv.length < 3) {
   process.exit(1)
 }
 
-const password = process.argv[2]
+//const password = process.argv[2]
+const password = "Control123"
 
-const url = 'mongodb+srv://jpazurduy:Control123@notescluster.fbe2baj.mongodb.net/?appName=NotesCluster'
-             
-
+const url = `mongodb+srv://jpazurduy:${password}@notescluster.fbe2baj.mongodb.net/?appName=NotesCluster`
+console.log(url)
 mongoose.set('strictQuery',false)
 
-mongoose.connect(url, { family: 4 })
+try {
+  mongoose.connect(url, { family: 4 })
+} catch (error) {
+  console.error("Error caught:", error.message);
+}
 
 const noteSchema = new mongoose.Schema({
   content: {
@@ -23,17 +27,16 @@ const noteSchema = new mongoose.Schema({
   important: Boolean,
 })
 
-const Note = mongoose.model('Note', noteSchema)
-
-const note = new Note({
-  content: 'JavaScript is easy',
-  important: true,
+noteSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
 })
 
-// note.save().then(result => {
-//   console.log('note saved!')
-//   mongoose.connection.close()
-// })
+const Note = mongoose.model('Note', noteSchema)
+
 
 Note.find({important :true}).then(result => {
   result.forEach(note => {

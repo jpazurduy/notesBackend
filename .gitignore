@@ -3,6 +3,7 @@ node_modules/
 /jspm_packages/
 .pnpm-store/
 package-lock.json
+.package-lock.json
 
 # React Production Builds
 /build/
